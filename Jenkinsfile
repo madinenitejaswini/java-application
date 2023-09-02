@@ -48,7 +48,6 @@ pipeline {
                    // Apply yaml file to eks cluster
                     sh '''
                      aws eks update-kubeconfig --name dev-cluster --region ap-south-1 
-                     cd kubernetes-yaml
 		     kubectl apply -f .
                      kubectl set image deployment/webapp webapp=361661913055.dkr.ecr.ap-south-1.amazonaws.com/webapp:$BUILD_NUMBER
                     '''
