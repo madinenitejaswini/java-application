@@ -43,12 +43,13 @@ pipeline {
         stage('Deployto AWS EKS') {
             steps {
                withAWS(credentials: 'aws-credentials', region: 'ap-south-1') {
-//kubectl set image deployment/webapp webapp=361661913055.dkr.ecr.ap-south-1.amazonaws.com/webapp:$BUILD_NUMBER
+
                    // Connect to the EKS cluster
                    // Apply yaml file to eks cluster
                     sh '''
                      aws eks update-kubeconfig --name dev-cluster --region ap-south-1 
-		     kubectl delete -f .
+		     kubectl apply -f .
+       		     kubectl set image deployment/webapp webapp=361661913055.dkr.ecr.ap-south-1.amazonaws.com/webapp:$BUILD_NUMBER
                     '''
                 }
             }
